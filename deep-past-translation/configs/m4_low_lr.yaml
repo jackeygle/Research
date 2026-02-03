@@ -1,0 +1,21 @@
+# Model 4: Lower learning rate
+model:
+  name: google/byt5-small
+  max_length: 512
+
+training:
+  epochs: 20
+  learning_rate: 5.0e-5  # Key difference: lower LR
+  batch_size: 1
+  gradient_accumulation: 8
+  label_smoothing: 0.2
+  weight_decay: 0.01
+
+data:
+  use_sentence_align: true
+  use_bidirectional: false
+  use_extra_sentences: false
+  val_size: 0.1
+
+output:
+  dir: ./models/m4_low_lr

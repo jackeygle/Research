@@ -1,0 +1,21 @@
+# Model 5: Higher learning rate, fewer epochs
+model:
+  name: google/byt5-small
+  max_length: 512
+
+training:
+  epochs: 15  # Fewer epochs
+  learning_rate: 2.0e-4  # Key difference: higher LR
+  batch_size: 1
+  gradient_accumulation: 8
+  label_smoothing: 0.2
+  weight_decay: 0.01
+
+data:
+  use_sentence_align: true
+  use_bidirectional: false
+  use_extra_sentences: false
+  val_size: 0.1
+
+output:
+  dir: ./models/m5_high_lr

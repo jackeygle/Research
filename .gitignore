@@ -1,0 +1,43 @@
+# Large files - exclude from Git
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.safetensors
+*.h5
+*.tar.gz
+*.zip
+
+# Data files
+*.csv
+*.parquet
+*.jsonl
+
+# Model and data directories
+**/models/
+**/checkpoints/
+**/data/
+**/logs/
+**/results/
+
+# Conda and cache
+.cache/
+.conda_envs/
+.conda_pkgs/
+.unified_data_cache/
+trajdata_cache/
+nuScenes*/
+v1.0-mini/
+
+# Python cache
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.cursor/
+
+# Slurm outputs
+slurm-*.out
+*.out

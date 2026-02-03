@@ -1,0 +1,18 @@
+# Model 6: mT5-small bidirectional
+model:
+  name: google/mt5-small
+  max_length: 512
+
+training:
+  epochs: 20
+  learning_rate: 1.0e-4
+  batch_size: 2
+  gradient_accumulation: 4
+  label_smoothing: 0.2
+
+data:
+  use_sentence_align: true
+  use_bidirectional: true
+
+output:
+  dir: ./models/m6_mt5_bidir

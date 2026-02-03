@@ -1,0 +1,18 @@
+# Model 1: ByT5-small baseline
+model:
+  name: google/byt5-small
+  max_length: 512
+
+training:
+  epochs: 20
+  learning_rate: 1.0e-4
+  batch_size: 1
+  gradient_accumulation: 8
+  label_smoothing: 0.2
+
+data:
+  use_sentence_align: true
+  use_bidirectional: false
+
+output:
+  dir: ./models/m1_byt5_baseline

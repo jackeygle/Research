@@ -1,0 +1,19 @@
+# Model 9: NLLB-200 with bidirectional
+model:
+  name: facebook/nllb-200-distilled-600M
+  max_length: 256
+  is_nllb: true
+
+training:
+  epochs: 15
+  learning_rate: 5.0e-5
+  batch_size: 1
+  gradient_accumulation: 8
+  label_smoothing: 0.1
+
+data:
+  use_sentence_align: true
+  use_bidirectional: true
+
+output:
+  dir: ./models/m9_nllb_bidir

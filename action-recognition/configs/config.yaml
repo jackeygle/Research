@@ -1,0 +1,28 @@
+# Action Recognition Configuration
+# ================================
+
+data:
+  data_dir: /scratch/work/zhangx29/data/UCF-101
+  num_frames: 16
+  frame_size: [112, 112]
+  num_workers: 4
+
+model:
+  type: r3d_18  # Options: r3d_18, r2plus1d_18
+  num_classes: 101
+  pretrained: true
+  dropout: 0.5
+
+training:
+  epochs: 30
+  batch_size: 8
+  lr: 0.001
+  weight_decay: 0.0001
+  lr_scheduler: cosine  # Options: cosine, step
+  warmup_epochs: 3
+  use_amp: true  # Mixed precision training
+
+output:
+  checkpoint_dir: checkpoints
+  log_dir: results/logs
+  save_every: 5

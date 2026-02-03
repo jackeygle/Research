@@ -1,0 +1,21 @@
+# Model 8: Shorter max length (faster)
+model:
+  name: google/byt5-small
+  max_length: 256  # Key difference: shorter
+
+training:
+  epochs: 20
+  learning_rate: 1.0e-4
+  batch_size: 2  # Can use larger batch with shorter seq
+  gradient_accumulation: 4
+  label_smoothing: 0.2
+  weight_decay: 0.01
+
+data:
+  use_sentence_align: true
+  use_bidirectional: false
+  use_extra_sentences: false
+  val_size: 0.1
+
+output:
+  dir: ./models/m8_short_len

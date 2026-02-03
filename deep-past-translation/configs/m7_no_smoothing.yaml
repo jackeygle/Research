@@ -1,0 +1,21 @@
+# Model 7: No label smoothing
+model:
+  name: google/byt5-small
+  max_length: 512
+
+training:
+  epochs: 20
+  learning_rate: 1.0e-4
+  batch_size: 1
+  gradient_accumulation: 8
+  label_smoothing: 0.0  # Key difference: no smoothing
+  weight_decay: 0.01
+
+data:
+  use_sentence_align: true
+  use_bidirectional: false
+  use_extra_sentences: false
+  val_size: 0.1
+
+output:
+  dir: ./models/m7_no_smoothing

@@ -1,0 +1,21 @@
+# Model 6: With extra OARE sentence data
+model:
+  name: google/byt5-small
+  max_length: 512
+
+training:
+  epochs: 20
+  learning_rate: 1.0e-4
+  batch_size: 1
+  gradient_accumulation: 8
+  label_smoothing: 0.2
+  weight_decay: 0.01
+
+data:
+  use_sentence_align: true
+  use_bidirectional: false
+  use_extra_sentences: true  # Key difference
+  val_size: 0.1
+
+output:
+  dir: ./models/m6_extra_data
