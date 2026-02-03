@@ -41,3 +41,7 @@ __pycache__/
 # Slurm outputs
 slurm-*.out
 *.out
+
+# Mamba packages (large files)
+mamba/pkgs/
+mamba/envs/

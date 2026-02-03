@@ -1,0 +1,19 @@
+# Pruning config for Distill-then-Prune pipeline
+
+# Prune method: "unstructured" (L1 per-weight) or "structured" (channel pruning)
+prune_method: structured
+
+# Fraction of params/channels to remove (0.2 = 20%)
+prune_ratio: 0.3
+
+# Optional fine-tune after pruning (epochs). 0 = no finetune.
+finetune_epochs: 5
+
+# Finetune learning rate
+finetune_lr: 1.0e-3
+
+# For structured pruning: progressive steps (1 = one-shot)
+iterative_steps: 1
+
+# Random seed
+seed: 42

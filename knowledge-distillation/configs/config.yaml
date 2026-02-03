@@ -1,0 +1,39 @@
+# Configuration for Knowledge Distillation experiments
+
+# Data
+data:
+  dataset: cifar10
+  data_dir: ./data
+  batch_size: 128
+  num_workers: 4
+
+# Teacher model
+teacher:
+  architecture: resnet34
+  pretrained: true
+  checkpoint: ./checkpoints/teacher_best.pth
+
+# Student model
+student:
+  architecture: mobilenetv2
+  width_mult: 1.0
+  checkpoint: ./checkpoints/student_best.pth
+
+# Training
+training:
+  epochs: 200
+  optimizer: sgd
+  lr: 0.1
+  momentum: 0.9
+  weight_decay: 1e-4
+  scheduler: cosine
+
+# Knowledge Distillation
+distillation:
+  temperature: 4.0
+  alpha: 0.3  # weight for hard labels (1-alpha for soft labels)
+
+# Logging
+logging:
+  log_dir: ./logs
+  save_freq: 10

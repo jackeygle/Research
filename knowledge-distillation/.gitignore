@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+
+checkpoints/
+logs/
+data/
+results/figures/
+
+*.pth
+*.tar.gz
+
+
