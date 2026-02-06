@@ -18,6 +18,17 @@ from preprocessing import load_test_data, normalize_text
 from postprocess import postprocess_batch, create_submission
 
 
+def build_memory_map(data_dir: str) -> dict:
+    """Build a lookup of normalized transliteration -> translation."""
+    train_path = Path(data_dir) / "train.csv"
+    if not train_path.exists():
+        return {}
+    train_df = pd.read_csv(train_path)
+    train_df["key"] = train_df["transliteration"].apply(normalize_text)
+    grouped = train_df.groupby("key")["translation"].agg(lambda x: x.value_counts().index[0])
+    return grouped.to_dict()
+
+
 def load_model_state_dict(model_path: str) -> Dict:
     """Load model state dict from path."""
     model = AutoModelForSeq2SeqLM.from_pretrained(model_path)
@@ -145,6 +156,13 @@ class EnsembleTranslator:
         text: str,
         num_beams: int = 8,
         max_new_tokens: int = 512,
+        min_new_tokens: int = 0,
+        length_penalty: float = 1.1,
+        no_repeat_ngram_size: int = 0,
+        repetition_penalty: float = 1.0,
+        do_sample: bool = False,
+        top_p: float = 1.0,
+        temperature: float = 1.0,
         strategy: str = "vote"
     ) -> str:
         """
@@ -175,6 +193,13 @@ class EnsembleTranslator:
                     **inputs,
                     num_beams=num_beams,
                     max_new_tokens=max_new_tokens,
+                    min_new_tokens=min_new_tokens,
+                    length_penalty=length_penalty,
+                    no_repeat_ngram_size=no_repeat_ngram_size,
+                    repetition_penalty=repetition_penalty,
+                    do_sample=do_sample,
+                    top_p=top_p,
+                    temperature=temperature,
                     early_stopping=True
                 )
             
@@ -195,12 +220,32 @@ class EnsembleTranslator:
         texts: List[str],
         batch_size: int = 4,
         num_beams: int = 8,
+        max_new_tokens: int = 512,
+        min_new_tokens: int = 0,
+        length_penalty: float = 1.1,
+        no_repeat_ngram_size: int = 0,
+        repetition_penalty: float = 1.0,
+        do_sample: bool = False,
+        top_p: float = 1.0,
+        temperature: float = 1.0,
         strategy: str = "vote"
     ) -> List[str]:
         """Translate batch using ensemble."""
         results = []
         for text in tqdm(texts, desc="Translating"):
-            result = self.translate_single(text, num_beams, strategy=strategy)
+            result = self.translate_single(
+                text,
+                num_beams=num_beams,
+                max_new_tokens=max_new_tokens,
+                min_new_tokens=min_new_tokens,
+                length_penalty=length_penalty,
+                no_repeat_ngram_size=no_repeat_ngram_size,
+                repetition_penalty=repetition_penalty,
+                do_sample=do_sample,
+                top_p=top_p,
+                temperature=temperature,
+                strategy=strategy
+            )
             results.append(result)
         return results
 
@@ -212,7 +257,18 @@ def run_ensemble_inference(
     weights: Optional[List[float]] = None,
     use_soup: bool = True,
     batch_size: int = 8,
-    num_beams: int = 8
+    num_beams: int = 8,
+    max_new_tokens: int = 512,
+    min_new_tokens: int = 0,
+    length_penalty: float = 1.1,
+    no_repeat_ngram_size: int = 0,
+    repetition_penalty: float = 1.0,
+    do_sample: bool = False,
+    top_p: float = 1.0,
+    temperature: float = 1.0,
+    postprocess_aggressive: bool = True,
+    use_memory_map: bool = False,
+    empty_fallback: str = "broken text"
 ):
     """
     Run ensemble inference.
@@ -241,7 +297,15 @@ def run_ensemble_inference(
         translations = model.translate_batch(
             test_df['transliteration'].tolist(),
             batch_size=batch_size,
-            num_beams=num_beams
+            num_beams=num_beams,
+            max_new_tokens=max_new_tokens,
+            min_new_tokens=min_new_tokens,
+            length_penalty=length_penalty,
+            no_repeat_ngram_size=no_repeat_ngram_size,
+            repetition_penalty=repetition_penalty,
+            do_sample=do_sample,
+            top_p=top_p,
+            temperature=temperature
         )
     else:
         # Use ensemble voting
@@ -249,11 +313,28 @@ def run_ensemble_inference(
         translations = ensemble.translate_batch(
             test_df['transliteration'].tolist(),
             batch_size=batch_size,
-            num_beams=num_beams
+            num_beams=num_beams,
+            max_new_tokens=max_new_tokens,
+            min_new_tokens=min_new_tokens,
+            length_penalty=length_penalty,
+            no_repeat_ngram_size=no_repeat_ngram_size,
+            repetition_penalty=repetition_penalty,
+            do_sample=do_sample,
+            top_p=top_p,
+            temperature=temperature
         )
     
     # Postprocess and save
-    translations = postprocess_batch(translations)
+    translations = postprocess_batch(translations, aggressive=postprocess_aggressive)
+    if use_memory_map:
+        memory_map = build_memory_map(data_dir)
+        if memory_map:
+            keys = test_df["transliteration"].apply(normalize_text).tolist()
+            translations = [
+                memory_map.get(k, t) for k, t in zip(keys, translations)
+            ]
+    if empty_fallback:
+        translations = [t if str(t).strip() else empty_fallback for t in translations]
     create_submission(test_df, translations, output_path)
 
 
@@ -266,6 +347,20 @@ if __name__ == "__main__":
     parser.add_argument("--data_dir", type=str, default="./data")
     parser.add_argument("--output", type=str, default="submission.csv")
     parser.add_argument("--use_soup", action="store_true", help="Use model soup")
+    parser.add_argument("--batch_size", type=int, default=8)
+    parser.add_argument("--num_beams", type=int, default=8)
+    parser.add_argument("--max_new_tokens", type=int, default=512)
+    parser.add_argument("--min_new_tokens", type=int, default=0)
+    parser.add_argument("--length_penalty", type=float, default=1.1)
+    parser.add_argument("--no_repeat_ngram_size", type=int, default=0)
+    parser.add_argument("--repetition_penalty", type=float, default=1.0)
+    parser.add_argument("--do_sample", action="store_true")
+    parser.add_argument("--top_p", type=float, default=1.0)
+    parser.add_argument("--temperature", type=float, default=1.0)
+    parser.add_argument("--postprocess_aggressive", action="store_true", default=True)
+    parser.add_argument("--postprocess_light", dest="postprocess_aggressive", action="store_false")
+    parser.add_argument("--use_memory_map", action="store_true")
+    parser.add_argument("--empty_fallback", type=str, default="broken text")
     args = parser.parse_args()
     
     run_ensemble_inference(
@@ -273,5 +368,18 @@ if __name__ == "__main__":
         args.data_dir,
         args.output,
         args.weights,
-        args.use_soup
+        args.use_soup,
+        args.batch_size,
+        args.num_beams,
+        args.max_new_tokens,
+        args.min_new_tokens,
+        args.length_penalty,
+        args.no_repeat_ngram_size,
+        args.repetition_penalty,
+        args.do_sample,
+        args.top_p,
+        args.temperature,
+        args.postprocess_aggressive,
+        args.use_memory_map,
+        args.empty_fallback
     )

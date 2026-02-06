@@ -1,0 +1,29 @@
+{
+  "id": "ezekieloluyale/deep-past-nllb-retrieval-hybrid",
+  "id_no": 104980190,
+  "title": "Deep Past: NLLB & Retrieval Hybrid",
+  "code_file": "deep-past-nllb-retrieval-hybrid.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "nlp",
+    "transformers",
+    "translation",
+    "gpu",
+    "artificial intelligence"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [],
+  "competition_sources": [
+    "deep-past-initiative-machine-translation"
+  ],
+  "model_sources": [
+    "nensipansuriya1311/nllb-200-distilled-600m/PyTorch/default/1"
+  ],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:9afebf76637ce6541a4a62ba59c41f7cdf5402c3e9b93b86637ef048b20283e0",
+  "machine_shape": "None"
+}

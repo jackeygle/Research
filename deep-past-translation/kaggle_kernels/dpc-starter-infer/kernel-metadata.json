@@ -1,0 +1,25 @@
+{
+  "id": "takamichitoda/dpc-starter-infer",
+  "id_no": 104826784,
+  "title": "DPC Starter Infer",
+  "code_file": "dpc-starter-infer.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "gpu"
+  ],
+  "dataset_sources": [],
+  "kernel_sources": [
+    "takamichitoda/dpc-starter-train"
+  ],
+  "competition_sources": [
+    "deep-past-initiative-machine-translation"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:536e3d9752ddf933ae83b0a0c3ea67d38e6236db11a1cd47d84927a0b8d2c440",
+  "machine_shape": "Gpu"
+}

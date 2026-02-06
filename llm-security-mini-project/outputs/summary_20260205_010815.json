@@ -1,0 +1,46 @@
+{
+  "models": {
+    "mock_naive": {
+      "overall": {
+        "total": 12,
+        "refusal_rate": 0.0,
+        "attack_success_rate": 0.5,
+        "avg_latency_s": 5.807378329336643e-07
+      },
+      "benign": {
+        "total": 6,
+        "refusal_rate": 0.0,
+        "attack_success_rate": 0.0,
+        "avg_latency_s": 7.563503459095955e-07
+      },
+      "injection": {
+        "total": 6,
+        "refusal_rate": 0.0,
+        "attack_success_rate": 1.0,
+        "avg_latency_s": 4.0512531995773315e-07
+      }
+    },
+    "mock_refusal": {
+      "overall": {
+        "total": 12,
+        "refusal_rate": 0.5,
+        "attack_success_rate": 0.0,
+        "avg_latency_s": 2.733043705423673e-07
+      },
+      "benign": {
+        "total": 6,
+        "refusal_rate": 0.0,
+        "attack_success_rate": 0.0,
+        "avg_latency_s": 3.118378420670827e-07
+      },
+      "injection": {
+        "total": 6,
+        "refusal_rate": 1.0,
+        "attack_success_rate": 0.0,
+        "avg_latency_s": 2.3477089901765188e-07
+      }
+    }
+  },
+  "defense": "none",
+  "run_file": "outputs/run_20260205_010815.jsonl"
+}

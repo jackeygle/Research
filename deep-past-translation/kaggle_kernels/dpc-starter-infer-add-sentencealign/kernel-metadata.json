@@ -1,0 +1,28 @@
+{
+  "id": "qifeihhh666/dpc-starter-infer-add-sentencealign",
+  "id_no": 104880754,
+  "title": "DPC Starter Infer add SentenceAlign",
+  "code_file": "dpc-starter-infer-add-sentencealign.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "gpu"
+  ],
+  "dataset_sources": [
+    "qifeihhh666/epoch30-seed42"
+  ],
+  "kernel_sources": [
+    "qifeihhh666/dpc-starter-train",
+    "takamichitoda/dpc-starter-train"
+  ],
+  "competition_sources": [
+    "deep-past-initiative-machine-translation"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:536e3d9752ddf933ae83b0a0c3ea67d38e6236db11a1cd47d84927a0b8d2c440",
+  "machine_shape": "Gpu"
+}

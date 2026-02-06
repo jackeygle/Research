@@ -1,0 +1,23 @@
+{
+  "id": "serariagomes/akkadian-english-byt5-optimized-again",
+  "id_no": 108353733,
+  "title": "Akkadian-English ByT5 Optimized Again",
+  "code_file": "akkadian-english-byt5-optimized-again.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [],
+  "dataset_sources": [
+    "assiaben/final-byt5"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [
+    "deep-past-initiative-machine-translation"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-images/python@sha256:2565f241bd4ecac85a132676664dabd5e3e8b4567db1b936507a987b37095f59",
+  "machine_shape": "None"
+}

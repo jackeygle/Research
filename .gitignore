@@ -45,3 +45,4 @@ slurm-*.out
 # Mamba packages (large files)
 mamba/pkgs/
 mamba/envs/
+.mamba/

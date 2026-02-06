@@ -1,0 +1,17 @@
+models:
+  - name: mock_naive
+    id: mock:naive
+  - name: mock_refusal
+    id: mock:refusal
+
+decoding:
+  max_new_tokens: 64
+  temperature: 0.2
+  top_p: 0.9
+  do_sample: false
+
+evaluation:
+  system_prompt: "You are a helpful, safe assistant."
+  prompt_files:
+    - data/benign_prompts.csv
+    - data/injection_prompts.csv

@@ -1,0 +1,25 @@
+{
+  "id": "yongsukprasertsuk/deep-past-challenge-byt5-optimized",
+  "id_no": 106879456,
+  "title": "Deep Past Challenge | ByT5 Optimized",
+  "code_file": "deep-past-challenge-byt5-optimized.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "gpu"
+  ],
+  "dataset_sources": [
+    "assiaben/final-byt5"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [
+    "deep-past-initiative-machine-translation"
+  ],
+  "model_sources": [],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:58f63ed194fa7d5c55181f1e8ec0be141e9211efa23bc7501c1c865f7e00057d",
+  "machine_shape": "NvidiaTeslaT4"
+}

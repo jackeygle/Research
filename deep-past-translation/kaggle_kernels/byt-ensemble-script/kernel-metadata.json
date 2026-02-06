@@ -1,0 +1,30 @@
+{
+  "id": "anthonytherrien/byt-ensemble-script",
+  "id_no": 107554325,
+  "title": "BYT-Ensemble | Script",
+  "code_file": "byt-ensemble-script.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": false,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "keywords": [
+    "gpu"
+  ],
+  "dataset_sources": [
+    "llkh0a/byt5-akkadian-model",
+    "jeanjean111/byt5-base-big-data2",
+    "assiaben/final-byt5",
+    "qifeihhh666/train-gap-all-2"
+  ],
+  "kernel_sources": [],
+  "competition_sources": [
+    "deep-past-initiative-machine-translation"
+  ],
+  "model_sources": [
+    "google/gemma-3/Transformers/gemma-3-4b-it/1"
+  ],
+  "docker_image": "gcr.io/kaggle-private-byod/python@sha256:536e3d9752ddf933ae83b0a0c3ea67d38e6236db11a1cd47d84927a0b8d2c440",
+  "machine_shape": "Gpu"
+}
